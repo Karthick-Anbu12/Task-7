@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title>Countries</title>
+    </head>
+    <body>
+        <script>
+            xhr=new XMLHttpRequest()
+            xhr.open("get","https://restcountries.com/v3.1/all",true)
+            xhr.onload =function ()
+             {
+                if(xhr.status>=200 && xhr.status<300)
+                {
+                 var response=JSON.parse(xhr.responseText);
+                  let pop=response.filter(a => a.population<200000);
+                    let asian=response.filter(a => a.region== "Asia");
+                   console.log(pop)
+                   console.log(asian)
+                   response.forEach(a => {
+                    console.log(a.name)
+                    console.log(a.capital)
+                    console.log(a.flag)
+                   });
+                   let total=response.reduce((acc,cur)=>acc+cur.population,0)
+                   console.log(total)   
+                   currency = response.filter((element) => {
+                          for(let key in element.currencies)
+                              if(key == "USD")
+                                 return element;
+                        })
+                     console.log(currency)
+                }
+
+                   
+
+                
+             }
+             xhr.send()
+             
+        </script>
+    </body>
+</html>
